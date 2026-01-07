@@ -9,6 +9,8 @@ def ping_sweep(network):
 
     for host in nm.all_hosts():
         if nm[host].state() == "up":
-            active_hosts.append(host)
+            last_octet = int(host.split(".")[-1])
+            if last_octet != 0 and last_octet != 255:
+                active_hosts.append(host)
 
     return active_hosts
