@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from scanner.ping_sweep import ping_sweep
 from scanner.port_scan import port_scan
 
@@ -14,4 +16,4 @@ if __name__ == "__main__":
             print(f" Open ports: {', '.join(map(str, open_ports))}")
         else:
             print(" No open TCP ports found")
-            
+
