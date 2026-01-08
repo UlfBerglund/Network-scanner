@@ -8,7 +8,7 @@ def port_scan(host):
     nm = nmap.PortScanner()
     try:
         nm.scan(hosts=host, arguments="-sT")
-    except Exception:
+    except Excepti
         return []
     open_ports = []
 
