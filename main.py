@@ -2,8 +2,21 @@
 
 import argparse
 
+import shutil
+import sys
+
+# Check if nmap is installed
+if shutil.which("nmap") is None:
+    print("[ERROR] nmap is not installed on this system.")
+    print("Install it with: sudo apt install nmap")
+    sys.exit(1)
+
+
 from scanner.ping_sweep import ping_sweep
 from scanner.port_scan import port_scan
+
+
+
 
 
 def parse_arguments():
