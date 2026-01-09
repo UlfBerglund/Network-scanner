@@ -7,7 +7,7 @@ It performs two main tasks:
 2. TCP port scanning of the discovered hosts using Nmap
 
 The project is part of a course assignment and follows
-a feature-branch workflow with multiple commits and three pull requests from a peer.
+a feature-branch workflow with multiple commits and three pull requests.
 
 ---
 
@@ -16,6 +16,7 @@ a feature-branch workflow with multiple commits and three pull requests from a p
 - Ping sweep using Nmap to detect active hosts
 - Filters out network and broadcast addresses
 - TCP connect scan (`-sT`) for open ports
+- Optional command-line flags for enhanced performance
 - Sorted list of open ports
 - Timeout handling for faster scans
 - Error handling to avoid crashes
@@ -25,7 +26,7 @@ a feature-branch workflow with multiple commits and three pull requests from a p
 
 ## Requirements
 
-- Linux (tested on Kali Linux)
+- Kali Linux (or Linux with Nmap installed)
 - Python 3
 - Nmap
 - python-nmap library
@@ -33,4 +34,21 @@ a feature-branch workflow with multiple commits and three pull requests from a p
 Install dependencies:
 
 ```bash
-pip install python-nmap
+pip install -r requirements.txt
+
+## Usage:
+
+- The script uses _argparse_ and is started from the command line.
+- Basic scan:
+python3 main.py network e.g. 192.168.10.0/24
+- Fast scan:
+python3 main.py 192.168.10.0/24 --fast
+- Scan only common ports:
+python3 main.py 192.168.10.0/24 --top-ports
+- Custom Nmap flags:
+python3 main.py 192.168.10.0/24 --custom "-T5 -n -p 22,80,443"
+- Show help
+python3 main.py -h
+
+## Disclaimer
+Only scan networks you own or have permission to test.
