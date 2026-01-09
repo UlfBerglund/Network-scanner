@@ -1,6 +1,6 @@
 import nmap
 
-def port_scan(host):
+def port_scan(host, nmap_flags):
     """
     Scans a host for open TCP-ports
     and returns a list of port numbers.
