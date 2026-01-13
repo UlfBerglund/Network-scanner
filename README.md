@@ -4,10 +4,10 @@ This project is a simple network scanner written in Python.
 It performs two main tasks:
 
 1. Ping sweep to identify active hosts in a network
-2. TCP port scanning of the discovered hosts using Nmap
+2. TCP port scanning of the discovered hosts using Nmap which automatically flags known critical vulnerabilities (e.g vsftpd 2.3.4) with red warnings.
 
 The project is part of a course assignment and follows
-a feature-branch workflow with multiple commits and three pull requests.
+a feature-branch workflow with multiple commits and pull requests.
 
 ---
 
@@ -15,11 +15,11 @@ a feature-branch workflow with multiple commits and three pull requests.
 
 - Ping sweep using Nmap to detect active hosts
 - Filters out network and broadcast addresses
-- TCP connect scan (`-sT`) for open ports
+- TCP connect scan using the -sV flag to identify specific software and version on open ports.
 - Optional command-line flags for enhanced performance
 - Sorted list of open ports
 - Timeout handling for faster scans
-- Error handling to avoid crashes
+- Error handling by using .get() methods  to avoid crashes when information is missing
 - Clear and readable output
 
 ---
