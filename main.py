@@ -2,6 +2,16 @@
 
 import argparse
 
+import shutil
+import sys
+
+# Check if nmap is installed
+if shutil.which("nmap") is None:
+    print("[Error] nmap is not installed on this system.")
+    print("Install it with: sudo apt install nmap")
+    sys.exit(1)
+    
+
 from scanner.ping_sweep import ping_sweep
 from scanner.port_scan import port_scan
 
@@ -44,7 +54,7 @@ def main():
     args = parse_arguments()
 
     # Default nmap flags
-    nmap_flags = "-sT"
+    nmap_flags = "-sV"
 
     # Apply predefined performance options
     if args.fast:
@@ -72,8 +82,10 @@ def main():
 
         print(f"\nHost: {host}")
         if len(open_ports) > 0:
-            ports = ", ".join(map(str, open_ports))
-            print(f"Open TCP ports: {ports}")
+            print("Open TCP ports:")
+            for port_info in open_ports:
+                if "vsftpd 2.3.4" in port_info.lower():
+                    print(f" - \033[91m{port_info} <-- VARNING: SÅRBAR VERSION!\033[0m")
         else:
             print("No open TCP ports found.")
 
