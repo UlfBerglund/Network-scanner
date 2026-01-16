@@ -4,7 +4,7 @@ This project is a simple network scanner written in Python.
 It performs two main tasks:
 
 1. Ping sweep to identify active hosts in a network
-2. TCP port scanning of the discovered hosts using Nmap which automatically flags known critical vulnerabilities (e.g vsftpd 2.3.4) with red warnings.
+2. TCP port scanning of the discovered hosts using Nmap which automatically flags known critical vulnerabilities (currently vsftpd 2.3.4) with red warnings.
 
 The project is part of a course assignment and follows
 a feature-branch workflow with multiple commits and pull requests.
@@ -24,6 +24,59 @@ a feature-branch workflow with multiple commits and pull requests.
 
 ---
 
+## Flow
+
+Step by step flowchart of script
+
+
+       [ START: python3 main.py network]
+                  |
+                  v
+      +---------------------------+
+      |  PRE-FLIGHT CHECK         | --> [Nmap not installed?] --> [sys.exit]
+      |  (shutil.which / sys)     |
+      +---------------------------+
+                  |
+                  v
+      +---------------------------+
+      |  HOST DISCOVERY           |
+      |  (ping_sweep.py)          | --> [No active hosts?] --> [Return]
+      +---------------------------+
+                  |
+                  v
+      +---------------------------+
+      |  SERVICE SCAN (-sV)       |
+      |  (port_scan.py)           | --> [No open TCP ports found?] --> [Return]
+      +---------------------------+
+                  |
+                  v
+      +---------------------------+
+      |  LOOP: Every open port    | 
+      +---------------------------+             
+                  |                             
+        [Is the version vsftpd 2.3.4?]          
+         /                  \                   
+      [YES]                 [NO]                
+       |                     |                  
+       v                     v                  
++--------------+      +--------------+          
+| Print warning|      | Print regular|          
+| in red       |      | info in white|          
++--------------+      +--------------+          
+       |                     |                  
+       +----------+----------+                  
+                  |                             
+         [Run security check on open ports] 
+                  |
+                  v
+         [ END: Show results]
+
+---
+
+## Script execution
+![Printscreen from Kali terminal](Script_demo.png)
+
+---
 ## Requirements
 
 - Kali Linux (or Linux with Nmap installed)
