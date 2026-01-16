@@ -86,9 +86,14 @@ def main():
         print(f"\nHost: {host}")
         if len(open_ports) > 0:
             print("Open TCP ports:")
-            for port_info in open_ports:
-                if "vsftpd 2.3.4" in port_info.lower():
-                    print(f" - \033[91m{port_info} <-- VARNING: SÅRBAR VERSION!\033[0m")
+        for port_info in open_ports:
+            # Check if service is vulnerable
+            if "vsftpd 2.3.4" in port_info.lower():
+            # Print a warning in red
+                print(f" - \033[91m{port_info} <-- VARNING: SÅRBAR VERSION!\033[0m")
+            else:
+            # Print other open ports
+                print(f" - {port_info}")
         else:
             print("No open TCP ports found.")
 
